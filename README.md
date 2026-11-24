@@ -63,6 +63,13 @@ umbral = reserva × factor meta × factor urgencia × factor demanda
 
 ## Instalación
 
+```powershell
+.\scripts\setup-android-sdk.ps1
+```
+
+Ese script descarga las Command-line Tools, acepta las licencias e instala los paquetes del SDK.
+Después:
+
 ```bash
 npm install
 npm run prebuild
