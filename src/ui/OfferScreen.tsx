@@ -22,6 +22,7 @@ export function OfferScreen({
   const [error, setError] = useState('');
   const offer = candidate?.offer ?? null;
   const decision = offer ? evaluateOffer(offer, state.settings, strategy) : null;
+  const parsed = candidate?.parsed ?? null;
 
   function patchOffer(patch: Partial<Offer>) {
     if (!candidate) return;
@@ -57,7 +58,7 @@ export function OfferScreen({
     onCandidate(null);
   }
 
-  if (!offer || !decision) {
+  if (!offer || !decision || !parsed) {
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <Card>
@@ -132,8 +133,8 @@ export function OfferScreen({
             />
           ))}
         </View>
-        {candidate.parsed.missing.length > 0 ? (
-          <Muted>{`No se pudieron leer: ${candidate.parsed.missing.join(', ')}. Corregí los campos arriba.`}</Muted>
+        {parsed.missing.length > 0 ? (
+          <Muted>{`No se pudieron leer: ${parsed.missing.join(', ')}. Corregí los campos arriba.`}</Muted>
         ) : null}
       </Card>
 
