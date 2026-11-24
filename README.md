@@ -83,7 +83,8 @@ npm run prebuild
 ```
 
 `npm run prebuild` genera la carpeta `android/` con el módulo nativo incluido (autolinking del
-paquete local `packages/rn-umbral-notifications`).
+paquete local `packages/rn-umbral-notifications`). El código Kotlin de ese módulo está versionado en
+el repo; la carpeta `android/` de la raíz es generada y no se sube.
 
 ## Generar el APK
 
