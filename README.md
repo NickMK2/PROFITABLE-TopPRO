@@ -1,9 +1,9 @@
-# Umbral
+# TopPRO
 
 Asistente de rentabilidad para choferes de apps de transporte de pasajeros (DiDi, Uber, Cabify,
 Bolt, Yango). **Solo Android.**
 
-Umbral lee el texto de las notificaciones entrantes, lo convierte a una métrica común y te dice
+TopPRO lee el texto de las notificaciones entrantes, lo convierte a una métrica común y te dice
 **ACEPTAR** o **ESPERAR** según cuánto te falte para la meta del día, cómo esté la demanda y cuánto
 tiempo quede. Vos siempre tocás el botón de aceptar.
 
@@ -80,7 +80,7 @@ npx expo install --fix
 
 ## Primer uso
 
-1. Instalá el APK y abrí Umbral.
+1. Instalá el APK y abrí TopPRO.
 2. Entrá a **ajustes** → **Activar acceso a notificaciones** y concedé el permiso del sistema.
 3. Cargá tu **meta neta del día**, horario de inicio/fin, reserva $/h, piso duro y costo por km.
 4. En **hoy** podés tocar **Simular oferta** para probar sin esperar una notificación real.

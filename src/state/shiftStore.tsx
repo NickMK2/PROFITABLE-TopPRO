@@ -12,7 +12,7 @@ import { computeStrategy } from '../domain/strategy';
 import { defaultSettings } from '../domain/settings';
 import type { Offer, OfferRecord, ShiftSettings, ShiftState } from '../domain/types';
 
-const STORAGE_KEY = 'umbral.shift.v1';
+const STORAGE_KEY = 'toppro.shift.v1';
 
 type Action =
   | { type: 'hydrate'; state: ShiftState }

@@ -51,7 +51,7 @@ export function SettingsScreen({
         ) : enabled === false ? (
           <>
             <Muted>
-              Falta dar permiso de acceso a notificaciones. Umbral solo lee el texto para calcular;
+              Falta dar permiso de acceso a notificaciones. TopPRO solo lee el texto para calcular;
               nunca toca el botón Aceptar.
             </Muted>
             <View style={styles.spacer} />

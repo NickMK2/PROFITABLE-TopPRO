@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Umbral",
-    "slug": "umbral",
+    "name": "TopPRO",
+    "slug": "toppro",
     "version": "0.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "android": {
-      "package": "com.umbral.app",
+      "package": "com.toppro.app",
       "permissions": ["android.permission.POST_NOTIFICATIONS"]
     },
     "plugins": []

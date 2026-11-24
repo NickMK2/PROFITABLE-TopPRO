@@ -87,7 +87,7 @@ function Root() {
     <SafeAreaView style={styles.root}>
       <StatusBar style="light" />
       <View style={styles.header}>
-        <Text style={styles.title}>UMBRAL</Text>
+        <Text style={styles.title}>TOPPRO</Text>
         <Text style={styles.subtitle}>Asistente de rentabilidad · Android</Text>
       </View>
 
