@@ -1,5 +1,10 @@
 # TopPRO
 
+Maximiza tus ganancias en plataformas de transporte como Uber o DiDi. TopPRO analiza las ofertas en
+tiempo real y te recomienda aceptar solo los viajes que cumplen tu tarifa mínima por kilómetro,
+teniendo en cuenta la distancia de recogida. Conduce menos, ahorrá combustible y hacé que cada
+carrera valga la pena.
+
 Asistente de rentabilidad para choferes de apps de transporte de pasajeros (DiDi, Uber, Cabify,
 Bolt, Yango). **Solo Android.**
 
@@ -119,3 +124,4 @@ en `src/__tests__/parser.test.ts`. Los campos que no se puedan leer aparecen mar
 
 MVP funcional. La lógica de negocio es la parte principal y es independiente de la UI, así que se
 puede probar y ajustar sin compilar la app.
+
