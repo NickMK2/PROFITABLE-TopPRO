@@ -9,6 +9,6 @@
       "package": "com.toppro.app",
       "permissions": ["android.permission.POST_NOTIFICATIONS"]
     },
-    "plugins": []
+    "plugins": ["./plugins/withKotlinVersion.js"]
   }
 }
