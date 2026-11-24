@@ -1,0 +1,11 @@
+{
+  "name": "react-native-umbral-notifications",
+  "version": "0.1.0",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "react-native": "index.js",
+  "description": "Puente nativo para leer notificaciones de apps de transporte en Android",
+  "peerDependencies": {
+    "react-native": "*"
+  }
+}
