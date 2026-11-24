@@ -55,22 +55,44 @@ umbral = reserva × factor meta × factor urgencia × factor demanda
 
 ## Requisitos
 
-- Node LTS (22 o superior).
+- Node 22 (o superior).
 - Java 17 (JDK) para compilar Android.
-- Android Studio con SDK de Android instalado.
-- Un celular Android con depuración USB o un emulador.
+- Android SDK: `platform-tools`, `platforms;android-35` y `build-tools;35.0.0`.
+  No hace falta Android Studio; alcanzan las *Command-line Tools* de Google.
+- Para instalar el APK en un celular: depuración USB activada.
 
 ## Instalación
 
 ```bash
 npm install
 npm run prebuild
-npm run build:android
 ```
 
 `npm run prebuild` genera la carpeta `android/` con el módulo nativo incluido (autolinking del
-paquete local `packages/rn-umbral-notifications`). `npm run build:android` compila e instala el APK
-en el dispositivo conectado.
+paquete local `packages/rn-umbral-notifications`).
+
+## Generar el APK
+
+En PowerShell, desde la carpeta del proyecto:
+
+```powershell
+.\scripts\build-apk.ps1
+```
+
+El script configura `JAVA_HOME` y `ANDROID_HOME` y corre Gradle. El APK queda en:
+
+```
+android\app\build\outputs\apk\debug\app-debug.apk
+```
+
+Para instalarlo en el celular:
+
+```powershell
+adb install -r "android\app\build\outputs\apk\debug\app-debug.apk"
+```
+
+También podés usar `npm run android` (`expo run:android`) si querés compilar e instalar en un
+dispositivo conectado en un solo paso.
 
 Si las versiones de Expo/RN quedan desactualizadas, ajustalas con:
 
