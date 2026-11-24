@@ -61,16 +61,23 @@ umbral = reserva × factor meta × factor urgencia × factor demanda
   No hace falta Android Studio; alcanzan las *Command-line Tools* de Google.
 - Para instalar el APK en un celular: depuración USB activada.
 
-## Instalación
+## En una PC Windows nueva (todo en un paso)
+
+```powershell
+git clone https://github.com/NickMK2/PROFITABLE-TopPRO.git
+cd PROFITABLE-TopPRO
+Set-ExecutionPolicy -Scope Process Bypass
+.\scripts\setup-windows.ps1
+```
+
+Ese script instala Node 22, JDK 17 y el SDK de Android (si faltan), corre `npm install`,
+genera la carpeta nativa con `expo prebuild` y compila el APK. Al finalizar, el APK está en
+`android\app\build\outputs\apk\debug\app-debug.apk`.
+
+Si todo ya está instalado y solo querés recompilar:
 
 ```powershell
 .\scripts\setup-android-sdk.ps1
-```
-
-Ese script descarga las Command-line Tools, acepta las licencias e instala los paquetes del SDK.
-Después:
-
-```bash
 npm install
 npm run prebuild
 ```
