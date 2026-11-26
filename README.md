@@ -17,12 +17,22 @@ tiempo quede. Vos siempre tocás el botón de aceptar.
 - Registra cada oferta (aceptada o rechazada) y ajusta la demanda observada.
 - Descarga un **catálogo versionado** de apps de Colombia/moto con modalidad, requisitos, pagos,
   comisión y link a términos oficiales; lo guarda en caché para funcionar sin internet.
+- Registra opcionalmente **clientes frecuentes y rutas predecibles** (origen, destino, días, horas y
+  coordenadas opcionales) para ordenar a quién conviene buscar primero.
+- Muestra **señales públicas y agregadas** (salud, transporte, educación) con fuente, fecha y
+  franjas horarias para elegir zonas sin depender de un cliente concreto.
+- **Sugiere rutas y las valida en 7 días**: registrás viajes, tarifa, km muertos y tiempo, y la app
+  indica si fue favorable, sin resultados o si faltan datos.
+- Redacta correos, teléfonos, placas y números largos del texto de notificación antes de guardarlo.
 
 **No hace:**
 - No auto-acepta carreras. Las apps de transporte prohíben esa automatización y puede costar la
   cuenta; además, un bot de accesibilidad se rompe con cada cambio de interfaz.
 - No funciona en Expo Go: el permiso de lectura de notificaciones requiere un APK con código nativo.
 - No soporta iOS (no hay API pública para leer notificaciones de terceros).
+- No lee contactos, correos, GPS, DiDi, PicUp ni bases de datos de terceros para "descubrir"
+  clientes: los datos se cargan a mano, con consentimiento, y quedan en el dispositivo.
+- No sube datos de clientes a GitHub ni a ningún servidor.
 
 ## Cómo se calcula la recomendación
 
@@ -125,8 +135,12 @@ npx expo install --fix
 4. Entrá a **apps** para ver el catálogo de Colombia/moto: modalidad, requisitos, comisión y
    términos oficiales. Si hay una comisión sugerida, podés aplicarla a esa fuente desde el botón
    **Aplicar**.
-5. En **hoy** podés tocar **Simular oferta** para probar sin esperar una notificación real.
-6. Cuando llegue una oferta, la app te lleva a **oferta** con la recomendación. Podés corregir los
+5. En **clientes** cargás, solo si la persona autoriza, su alias, ruta, días/horas y preferencias.
+6. En **rutas** cargás tu zona y el destino del pasajero actual; la app ordena los clientes
+   recurrentes por ventana horaria, cercanía y coincidencia de destino, y abajo muestra las señales
+   públicas vigentes para esa zona.
+7. En **hoy** podés tocar **Simular oferta** para probar sin esperar una notificación real.
+8. Cuando llegue una oferta, la app te lleva a **oferta** con la recomendación. Podés corregir los
    datos leídos, aceptar o rechazar.
 
 ## Catálogo remoto de apps (Colombia / moto)
@@ -157,6 +171,76 @@ No hace falta recompilar. Si agregás una app nueva con `sourceId` nuevo, sumalo
 `ALL_SOURCES` en `src/domain/settings.ts`, a `SOURCE_PATTERNS` en
 `src/ingest/notificationParser.ts` y a los valores por defecto, y recompilá.
 
+## Clientes frecuentes y rutas predecibles (solo en el dispositivo)
+
+La pestaña **clientes** es un registro *opt-in*: cada alta requiere marcar que la persona autorizó
+guardar esos datos en tu celular. El consentimiento dura 12 meses, se puede renovar y cada registro
+se puede borrar con confirmación. Campos: alias, teléfono/correo opcionales, zonas, preferencias,
+origen, destino, días de la semana, hora de recogida, hora de regreso y coordenadas opcionales
+(`lat,lon`). Se guarda en `AsyncStorage` (`toppro.customers.v1`), sin cifrar y sin salir del equipo.
+
+La pestaña **rutas** usa ese registro para mostrar patrones:
+
+- calcula la próxima recogida según día y hora;
+- prioriza las que caen dentro de las próximas 2 horas;
+- calcula distancia en línea recta si cargaste tus coordenadas y las del origen;
+- si cargás la zona/destino del pasajero actual, marca qué cliente tiene el origen cerca de ese
+  destino, para encadenar un viaje en vez de dar vueltas vacío;
+- sin coordenadas, la coincidencia es por texto de zona (por ejemplo, "Chapinero" vs "casa en
+  Chapinero").
+
+Esto **no extrae** clientes de DiDi, PicUp ni de tus contactos. Usarlo para captar clientes fuera de
+las plataformas puede violar sus términos; el módulo sirve para recordar y mejorar la atención dentro
+de la relación que ya tenés. Si la persona dejó de necesitar el servicio o compró su vehículo,
+borrala del registro.
+
+## Señales públicas para decidir zona y franja
+
+`catalog/public-flows-colombia.v1.json` complementa el catálogo de apps. No contiene personas:
+resume patrones **públicos y agregados** con fuente, fecha de verificación y nivel de confianza
+(`oficial`, `orientativo` o `verificar`). La app lo descarga desde:
+
+```
+https://raw.githubusercontent.com/NickMK2/PROFITABLE-TopPRO/main/catalog/public-flows-colombia.v1.json
+```
+
+Igual que el catálogo de apps, guarda caché en `AsyncStorage` (`toppro.flows.v1`) y sirve la copia
+incluida si no hay internet. En la pestaña **rutas**, cada señal se muestra con:
+
+- estado **AHORA / PRÓXIMO / MÁS TARDE / DINÁMICO** según la hora local;
+- zona y coincidencia con la que cargaste como "Mi zona donde estoy";
+- una frase de qué significa y otra de cómo usarla;
+- franjas publicadas y botón para abrir la fuente.
+
+Ejemplos incluidos con fuente oficial: horario de atención de la Secretaría Distrital de Salud,
+horario del call center de citas médicas de la red pública (lunes a sábado, 06:00–20:00),
+publicación diaria de puntos de vacunación en canales oficiales y estadísticas de validación por
+portales del SITP. Las señales de campus universitarios y horarios de visitas de IPS están marcadas
+como **a verificar**: no las trates como ciertas sin confirmar en la fuente local.
+
+Esto no reemplaza tu criterio ni promete demanda: solo reduce las vueltas a ciegas al mostrarte
+dónde y cuándo se concentra la actividad pública.
+
+## Probar y validar una ruta durante 7 días
+
+La pestaña **pruebas** cierra el ciclo: toma las mejores rutas de clientes con consentimiento y las
+señales públicas mejor ubicadas, y te ofrece hasta 4 sugerencias con un botón **Probar 7 días**.
+Cada prueba queda guardada en el celular (`toppro.route-trials.v1`) con:
+
+- **día registrado**: fecha, viajes aceptados, tarifa total, km sin pasajero, minutos y nota
+  opcional (si repetís la fecha, se reemplaza);
+- **resumen**: días, viajes, tarifa, km muertos, neto estimado y neto por hora;
+- **veredicto**: `favorable`, `sin-resultados` o `insuficiente`.
+
+La regla es explicable y ajustable: se considera **favorable** con al menos 3 días registrados,
+5 viajes y un neto estimado por hora ≥ el mínimo `$/h` que configuraste en Ajustes. El neto descuenta
+la comisión promedio de tus fuentes activas y el costo por km. Si llega el día 7 sin alcanzar ese
+valor, el veredicto es **sin resultados**; antes de eso, **insuficiente**. Podés validar cuando
+quieras, borrar una prueba y repetirla después.
+
+Esto no decide por vos: TopPRO solo sugiere y mide. El botón **Aceptar** sigue siendo tuyo en la app
+de trabajo.
+
 ## Pruebas
 
 ```bash
@@ -164,17 +248,19 @@ npm test
 ```
 
 Cubre el cálculo de métricas, la estrategia (ritmo, demanda, urgencia, supervivencia), el parser de
-notificaciones en español y la validación del catálogo versionado.
+notificaciones en español, la validación de ambos catálogos, la redacción de datos personales, el
+consentimiento de clientes, el plan de rutas con señales públicas y el ciclo de pruebas de 7 días
+con sus tres veredictos.
 
 ## Estructura
 
 ```
 src/
-  domain/        lógica pura: tipos, métricas, estrategia, decisión, config, catálogo
-  ingest/        parseo de números y de texto de notificaciones
-  state/         estado del día, catálogo remoto y persistencia local (AsyncStorage)
-  ui/            pantallas Hoy / Oferta / Apps / Ajustes
-catalog/         JSON versionado del catálogo de apps (fuente única + copia incluida)
+  domain/        lógica pura: tipos, métricas, estrategia, decisión, config, catálogos, clientes, rutas
+  ingest/        parseo de números, notificaciones y redacción de datos personales
+  state/         estado del día, catálogos, clientes y persistencia local (AsyncStorage)
+  ui/            pantallas Hoy / Oferta / Apps / Rutas / Pruebas / Clientes / Ajustes
+catalog/         JSON versionado de apps y de señales públicas (fuente única + copia incluida)
 packages/
   rn-umbral-notifications/   módulo nativo Android (NotificationListenerService)
 src/__tests__/   pruebas de la lógica

@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "country": "CO",
+  "city": "Bogotá",
+  "updatedAt": "2026-11-26",
+  "disclaimer": "Señales públicas y agregadas, no datos personales. Sirven para elegir zonas y franjas, no para saber adónde va una persona concreta. Confirmá siempre en la fuente oficial: horarios y eventos cambian.",
+  "signals": [
+    {
+      "id": "secretaria-distrital-salud",
+      "name": "Secretaría Distrital de Salud",
+      "category": "salud",
+      "zone": "Carrera 32 No. 12-81",
+      "confidence": "oficial",
+      "insight": "Atención presencial lunes a viernes de 07:00 a 16:00 en jornada continua. La línea de servicio atiende hasta las 17:00 y los sábados hasta el mediodía.",
+      "action": "Para trámites presenciales, mirá la franja de llegada temprano y la salida de la tarde; el sábado solo aplica la línea telefónica.",
+      "weekdays": [1, 2, 3, 4, 5],
+      "windows": [
+        { "start": "07:00", "end": "09:00", "label": "Llegada a trámites" },
+        { "start": "12:00", "end": "13:30", "label": "Movimiento de almuerzo" },
+        { "start": "15:30", "end": "16:30", "label": "Salida" }
+      ],
+      "sourceUrl": "https://bogota.gov.co/servicios/entidad/secretaria-distrital-de-salud-sds",
+      "verifiedAt": "2026-11-26"
+    },
+    {
+      "id": "citas-medicas-red-publica",
+      "name": "Citas médicas · red pública hospitalaria",
+      "category": "salud",
+      "zone": "Bogotá · red pública hospitalaria",
+      "confidence": "oficial",
+      "insight": "Capital Salud publica que el Call Center Distrital atiende lunes a sábado de 06:00 a 20:00 para agendar medicina general, especialistas e imágenes.",
+      "action": "Usá la franja de la mañana temprano como señal de actividad de agenda; no significa que la cita médica sea a esa hora.",
+      "weekdays": [1, 2, 3, 4, 5, 6],
+      "windows": [
+        { "start": "06:00", "end": "08:00", "label": "Apertura de línea" },
+        { "start": "18:00", "end": "20:00", "label": "Cierre de línea" }
+      ],
+      "sourceUrl": "https://bogota.gov.co/mi-ciudad/salud/como-programar-citas-medicas-en-la-red-publica-hospitalaria-de-bogota",
+      "verifiedAt": "2026-11-26"
+    },
+    {
+      "id": "portales-transmilenio",
+      "name": "Portales de TransMilenio con mayor demanda",
+      "category": "transporte",
+      "zone": "Portal Norte · Portal Américas · Portal Suba",
+      "confidence": "orientativo",
+      "insight": "Las estadísticas oficiales del SITP muestran a Portal Norte con el mayor número de validaciones diarias y en hora pico; Portal Américas y Suba también figuran entre los de mayor demanda.",
+      "action": "En hora pico, priorizá zonas cercanas a esos portales solo si tu zona coincide; el dato es agregado y no garantiza ofertas.",
+      "weekdays": [1, 2, 3, 4, 5],
+      "windows": [
+        { "start": "06:00", "end": "09:00", "label": "Hora pico mañana" },
+        { "start": "16:00", "end": "19:00", "label": "Hora pico tarde" }
+      ],
+      "sourceUrl": "https://www.transmilenio.gov.co/nuestra-entidad/de-tu-interes/estadisticas-de-oferta-y-demanda-del-sistema-integrado-de-transporte-publico-sitp",
+      "verifiedAt": "2026-11-26"
+    },
+    {
+      "id": "puntos-vacunacion",
+      "name": "Puntos de vacunación publicados cada día",
+      "category": "salud",
+      "zone": "Bogotá · puntos dinámicos",
+      "confidence": "oficial",
+      "insight": "La Secretaría de Salud publica diariamente los puntos habilitados en sus canales y redes sociales oficiales; la ubicación cambia cada jornada.",
+      "action": "Antes de salir, abrí la fuente del día y cargá la zona del punto si cae cerca de tu recorrido.",
+      "weekdays": [1, 2, 3, 4, 5, 6, 0],
+      "windows": [],
+      "sourceUrl": "https://bogota.gov.co/servicios/entidad/secretaria-distrital-de-salud-sds",
+      "verifiedAt": "2026-11-26"
+    },
+    {
+      "id": "universidades",
+      "name": "Campus universitarios",
+      "category": "educación",
+      "zone": "Bogotá · campus",
+      "confidence": "verificar",
+      "insight": "Los campus suelen concentrar entradas y salidas en franjas de clase, pero cada universidad publica su propio calendario.",
+      "action": "Confirmá el calendario de la institución en tu zona y cargalo como patrón local antes de contar con él.",
+      "weekdays": [1, 2, 3, 4, 5],
+      "windows": [
+        { "start": "07:00", "end": "09:00", "label": "Entrada" },
+        { "start": "12:00", "end": "14:00", "label": "Mediodía" },
+        { "start": "17:00", "end": "19:00", "label": "Salida" }
+      ],
+      "sourceUrl": "https://www.mineducacion.gov.co/",
+      "verifiedAt": "2026-11-26"
+    },
+    {
+      "id": "ips-bogota",
+      "name": "Red de IPS de Bogotá",
+      "category": "salud",
+      "zone": "Bogotá · IPS públicas y privadas",
+      "confidence": "verificar",
+      "insight": "Datos Abiertos Bogotá publica el listado de instituciones prestadoras de salud habilitadas; los horarios de visitas y citas varían por sede.",
+      "action": "Usá el listado para identificar sedes cerca de tu ruta y confirmá horarios directamente con cada institución.",
+      "weekdays": [1, 2, 3, 4, 5, 6],
+      "windows": [
+        { "start": "10:00", "end": "12:00", "label": "Visitas (verificar)" },
+        { "start": "15:00", "end": "17:00", "label": "Visitas (verificar)" }
+      ],
+      "sourceUrl": "https://datosabiertos.bogota.gov.co/dataset/instituciones-prestadoras-de-salud-bogota",
+      "verifiedAt": "2026-11-26"
+    }
+  ]
+}

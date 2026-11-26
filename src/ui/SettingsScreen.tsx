@@ -12,11 +12,17 @@ export function SettingsScreen({
   enabled,
   onEnable,
   onOpenCatalog,
+  onOpenRoutes,
+  onOpenTrials,
+  onOpenCustomers,
 }: {
   listenerAvailable: boolean;
   enabled: boolean | null;
   onEnable: () => void;
   onOpenCatalog: () => void;
+  onOpenRoutes: () => void;
+  onOpenTrials: () => void;
+  onOpenCustomers: () => void;
 }) {
   const { state, dispatch } = useShift();
   const settings = state.settings;
@@ -159,6 +165,12 @@ export function SettingsScreen({
         </Muted>
         <View style={styles.spacer} />
         <Button title="Ver catálogo de apps" onPress={onOpenCatalog} tone="ghost" />
+        <View style={styles.spacer} />
+        <Button title="Ver rutas predecibles" onPress={onOpenRoutes} tone="ghost" />
+        <View style={styles.spacer} />
+        <Button title="Probar y validar rutas" onPress={onOpenTrials} tone="ghost" />
+        <View style={styles.spacer} />
+        <Button title="Clientes frecuentes" onPress={onOpenCustomers} tone="ghost" />
         <Text style={styles.fieldLabel}>Fuentes activas</Text>
         <View style={styles.chips}>
           {ALL_SOURCES.map((source) => (

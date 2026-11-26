@@ -2,18 +2,27 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import * as Notifications from 'react-native-umbral-notifications';
+import appJson from './app.json';
 import type { Offer, SourceId } from './src/domain/types';
 import { parseOfferText } from './src/ingest/notificationParser';
+import { redactNotificationText } from './src/ingest/redact';
 import { CatalogProvider } from './src/state/catalogStore';
+import { CustomersProvider } from './src/state/customerStore';
+import { PublicFlowsProvider } from './src/state/publicFlowsStore';
+import { RouteTrialsProvider } from './src/state/routeTrialStore';
 import { ShiftProvider, useShift } from './src/state/shiftStore';
 import { AppsScreen } from './src/ui/AppsScreen';
 import type { Candidate } from './src/ui/candidate';
+import { CustomersScreen } from './src/ui/CustomersScreen';
 import { OfferScreen } from './src/ui/OfferScreen';
+import { RouteTrialsScreen } from './src/ui/RouteTrialsScreen';
+import { RoutesScreen } from './src/ui/RoutesScreen';
 import { SettingsScreen } from './src/ui/SettingsScreen';
 import { TodayScreen } from './src/ui/TodayScreen';
 import { colors } from './src/ui/theme';
 
-type Tab = 'hoy' | 'oferta' | 'apps' | 'ajustes';
+const APP_VERSION = appJson.expo.version;
+type Tab = 'hoy' | 'oferta' | 'apps' | 'rutas' | 'pruebas' | 'clientes' | 'ajustes';
 
 function Root() {
   const { state, dispatch } = useShift();
@@ -36,7 +45,8 @@ function Root() {
     const offerSub = Notifications.addOfferListener((payload) => {
       // Ignorar notificaciones antiguas que el sistema reenvía al conectar.
       if (Date.now() - payload.postedAt > 60_000) return;
-      const parsed = parseOfferText(payload.content, Date.now(), payload.package);
+      const content = redactNotificationText(payload.content);
+      const parsed = parseOfferText(content, Date.now(), payload.package);
       const offer = parsed.offer;
       if (!offer) return;
       const current = settingsRef.current;
@@ -90,7 +100,7 @@ function Root() {
       <StatusBar style="light" />
       <View style={styles.header}>
         <Text style={styles.title}>TOPPRO</Text>
-        <Text style={styles.subtitle}>Asistente de rentabilidad · Android</Text>
+        <Text style={styles.subtitle}>Asistente de rentabilidad · v{APP_VERSION}</Text>
       </View>
 
       {!listenerAvailable ? (
@@ -106,7 +116,7 @@ function Root() {
       ) : null}
 
       <View style={styles.tabs}>
-        {(['hoy', 'oferta', 'apps', 'ajustes'] as Tab[]).map((item) => (
+        {(['hoy', 'oferta', 'apps', 'rutas', 'pruebas', 'clientes', 'ajustes'] as Tab[]).map((item) => (
           <Pressable
             key={item}
             onPress={() => setTab(item)}
@@ -123,12 +133,24 @@ function Root() {
         <OfferScreen candidate={candidate} onCandidate={setCandidate} />
       ) : tab === 'apps' ? (
         <AppsScreen />
+      ) : tab === 'rutas' ? (
+        <RoutesScreen
+          onOpenCustomers={() => setTab('clientes')}
+          onOpenTrials={() => setTab('pruebas')}
+        />
+      ) : tab === 'pruebas' ? (
+        <RouteTrialsScreen onOpenRoutes={() => setTab('rutas')} />
+      ) : tab === 'clientes' ? (
+        <CustomersScreen onOpenRoutes={() => setTab('rutas')} />
       ) : (
         <SettingsScreen
           listenerAvailable={listenerAvailable}
           enabled={enabled}
           onEnable={openPermissionSettings}
           onOpenCatalog={() => setTab('apps')}
+          onOpenRoutes={() => setTab('rutas')}
+          onOpenTrials={() => setTab('pruebas')}
+          onOpenCustomers={() => setTab('clientes')}
         />
       )}
     </SafeAreaView>
@@ -139,7 +161,13 @@ export default function App() {
   return (
     <ShiftProvider>
       <CatalogProvider>
-        <Root />
+        <CustomersProvider>
+          <PublicFlowsProvider>
+            <RouteTrialsProvider>
+              <Root />
+            </RouteTrialsProvider>
+          </PublicFlowsProvider>
+        </CustomersProvider>
       </CatalogProvider>
     </ShiftProvider>
   );
@@ -153,10 +181,10 @@ const styles = StyleSheet.create({
   notice: { backgroundColor: colors.surfaceAlt, paddingHorizontal: 16, paddingVertical: 10 },
   noticePressable: { backgroundColor: colors.warning, paddingHorizontal: 16, paddingVertical: 10 },
   noticeText: { color: colors.text, fontSize: 12 },
-  tabs: { flexDirection: 'row', paddingHorizontal: 12, paddingVertical: 8, gap: 8 },
+  tabs: { flexDirection: 'row', paddingHorizontal: 8, paddingVertical: 8, gap: 4 },
   tab: {
     flex: 1,
-    paddingVertical: 8,
+    paddingVertical: 7,
     borderRadius: 9,
     backgroundColor: colors.surface,
     alignItems: 'center',
@@ -164,6 +192,6 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
   },
   tabActive: { backgroundColor: colors.surfaceAlt, borderColor: colors.accent },
-  tabText: { color: colors.muted, fontSize: 12, fontWeight: '600', textTransform: 'capitalize' },
+  tabText: { color: colors.muted, fontSize: 10, fontWeight: '700', textTransform: 'capitalize' },
   tabTextActive: { color: colors.accent },
 });

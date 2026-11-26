@@ -2,11 +2,12 @@
   "expo": {
     "name": "TopPRO",
     "slug": "toppro",
-    "version": "0.1.0",
+    "version": "0.3.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "android": {
       "package": "com.toppro.app",
+      "versionCode": 3,
       "permissions": ["android.permission.POST_NOTIFICATIONS"]
     },
     "plugins": ["./plugins/withKotlinVersion.js"]

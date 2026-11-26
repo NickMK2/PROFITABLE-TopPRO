@@ -5,6 +5,7 @@ import { formatMoney, formatRate } from '../domain/money';
 import { ALL_SOURCES } from '../domain/settings';
 import type { Offer, SourceId } from '../domain/types';
 import { parseOfferText } from '../ingest/notificationParser';
+import { redactNotificationText } from '../ingest/redact';
 import { useShift } from '../state/shiftStore';
 import { Button, Card, Muted, NumberField, SectionTitle, TextField } from './components';
 import type { Candidate } from './candidate';
@@ -37,7 +38,7 @@ export function OfferScreen({
   }
 
   function analyzeText() {
-    const parsed = parseOfferText(text, Date.now());
+    const parsed = parseOfferText(redactNotificationText(text), Date.now());
     if (!parsed.offer) {
       setError('No encontré una tarifa con $ o ARS. Pega el texto completo de la notificación.');
       return;
