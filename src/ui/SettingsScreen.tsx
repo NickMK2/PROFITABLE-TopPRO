@@ -11,10 +11,12 @@ export function SettingsScreen({
   listenerAvailable,
   enabled,
   onEnable,
+  onOpenCatalog,
 }: {
   listenerAvailable: boolean;
   enabled: boolean | null;
   onEnable: () => void;
+  onOpenCatalog: () => void;
 }) {
   const { state, dispatch } = useShift();
   const settings = state.settings;
@@ -151,6 +153,12 @@ export function SettingsScreen({
             }
           />
         ))}
+        <Muted>
+          Los porcentajes son orientativos salvo que el catálogo indique lo contrario. Consultá
+          modalidad, requisitos y términos de cada app en la pestaña Apps.
+        </Muted>
+        <View style={styles.spacer} />
+        <Button title="Ver catálogo de apps" onPress={onOpenCatalog} tone="ghost" />
         <Text style={styles.fieldLabel}>Fuentes activas</Text>
         <View style={styles.chips}>
           {ALL_SOURCES.map((source) => (

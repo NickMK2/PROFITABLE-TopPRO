@@ -1,4 +1,13 @@
-export type SourceId = 'didi' | 'uber' | 'cabify' | 'bolt' | 'yango' | 'other';
+export type SourceId =
+  | 'didi'
+  | 'uber'
+  | 'cabify'
+  | 'bolt'
+  | 'yango'
+  | 'rappi'
+  | 'glovo'
+  | 'pedidosya'
+  | 'other';
 
 /** Una oferta ya normalizada, sin importar de qué app vino. */
 export interface Offer {

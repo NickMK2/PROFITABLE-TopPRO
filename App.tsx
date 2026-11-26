@@ -4,14 +4,16 @@ import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import * as Notifications from 'react-native-umbral-notifications';
 import type { Offer, SourceId } from './src/domain/types';
 import { parseOfferText } from './src/ingest/notificationParser';
+import { CatalogProvider } from './src/state/catalogStore';
 import { ShiftProvider, useShift } from './src/state/shiftStore';
+import { AppsScreen } from './src/ui/AppsScreen';
 import type { Candidate } from './src/ui/candidate';
 import { OfferScreen } from './src/ui/OfferScreen';
 import { SettingsScreen } from './src/ui/SettingsScreen';
 import { TodayScreen } from './src/ui/TodayScreen';
 import { colors } from './src/ui/theme';
 
-type Tab = 'hoy' | 'oferta' | 'ajustes';
+type Tab = 'hoy' | 'oferta' | 'apps' | 'ajustes';
 
 function Root() {
   const { state, dispatch } = useShift();
@@ -104,7 +106,7 @@ function Root() {
       ) : null}
 
       <View style={styles.tabs}>
-        {(['hoy', 'oferta', 'ajustes'] as Tab[]).map((item) => (
+        {(['hoy', 'oferta', 'apps', 'ajustes'] as Tab[]).map((item) => (
           <Pressable
             key={item}
             onPress={() => setTab(item)}
@@ -119,11 +121,14 @@ function Root() {
         <TodayScreen onSimulate={simulate} />
       ) : tab === 'oferta' ? (
         <OfferScreen candidate={candidate} onCandidate={setCandidate} />
+      ) : tab === 'apps' ? (
+        <AppsScreen />
       ) : (
         <SettingsScreen
           listenerAvailable={listenerAvailable}
           enabled={enabled}
           onEnable={openPermissionSettings}
+          onOpenCatalog={() => setTab('apps')}
         />
       )}
     </SafeAreaView>
@@ -133,7 +138,9 @@ function Root() {
 export default function App() {
   return (
     <ShiftProvider>
-      <Root />
+      <CatalogProvider>
+        <Root />
+      </CatalogProvider>
     </ShiftProvider>
   );
 }
@@ -157,6 +164,6 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
   },
   tabActive: { backgroundColor: colors.surfaceAlt, borderColor: colors.accent },
-  tabText: { color: colors.muted, fontSize: 13, fontWeight: '600', textTransform: 'capitalize' },
+  tabText: { color: colors.muted, fontSize: 12, fontWeight: '600', textTransform: 'capitalize' },
   tabTextActive: { color: colors.accent },
 });

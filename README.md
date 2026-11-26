@@ -1,7 +1,7 @@
 # TopPRO
 
-Asistente de rentabilidad para choferes de apps de transporte de pasajeros (DiDi, Uber, Cabify,
-Bolt, Yango). **Solo Android.**
+Asistente de rentabilidad para choferes y repartidores en moto (DiDi Moto, Uber, Rappi, Glovo,
+Cabify, Yango, PedidosYa y genérico). **Solo Android.**
 
 TopPRO lee el texto de las notificaciones entrantes, lo convierte a una métrica común y te dice
 **ACEPTAR** o **ESPERAR** según cuánto te falte para la meta del día, cómo esté la demanda y cuánto
@@ -15,6 +15,8 @@ tiempo quede. Vos siempre tocás el botón de aceptar.
 - Calcula ganancia neta por hora: descuenta comisión y costo por km.
 - Calcula un umbral dinámico y lo explica en pantalla.
 - Registra cada oferta (aceptada o rechazada) y ajusta la demanda observada.
+- Descarga un **catálogo versionado** de apps de Colombia/moto con modalidad, requisitos, pagos,
+  comisión y link a términos oficiales; lo guarda en caché para funcionar sin internet.
 
 **No hace:**
 - No auto-acepta carreras. Las apps de transporte prohíben esa automatización y puede costar la
@@ -120,9 +122,40 @@ npx expo install --fix
 1. Instalá el APK y abrí TopPRO.
 2. Entrá a **ajustes** → **Activar acceso a notificaciones** y concedé el permiso del sistema.
 3. Cargá tu **meta neta del día**, horario de inicio/fin, reserva $/h, piso duro y costo por km.
-4. En **hoy** podés tocar **Simular oferta** para probar sin esperar una notificación real.
-5. Cuando llegue una oferta, la app te lleva a **oferta** con la recomendación. Podés corregir los
+4. Entrá a **apps** para ver el catálogo de Colombia/moto: modalidad, requisitos, comisión y
+   términos oficiales. Si hay una comisión sugerida, podés aplicarla a esa fuente desde el botón
+   **Aplicar**.
+5. En **hoy** podés tocar **Simular oferta** para probar sin esperar una notificación real.
+6. Cuando llegue una oferta, la app te lleva a **oferta** con la recomendación. Podés corregir los
    datos leídos, aceptar o rechazar.
+
+## Catálogo remoto de apps (Colombia / moto)
+
+El archivo `catalog/apps-colombia-moto.v1.json` es la **única fuente de datos** del catálogo. Se
+incluye dentro del APK como copia inicial y además se publica en:
+
+```
+https://raw.githubusercontent.com/NickMK2/PROFITABLE-TopPRO/main/catalog/apps-colombia-moto.v1.json
+```
+
+Al abrir la pestaña **apps**, TopPRO descarga ese JSON desde GitHub, lo valida y lo guarda en
+`AsyncStorage` (`toppro.catalog.v1`). Si no hay internet, usa la caché; si no hay caché, usa la copia
+incluida. El botón **Actualizar catálogo** fuerza una nueva descarga.
+
+Cada entrada tiene: nombre, `sourceId` (la fuente del parser), tipo de trabajo, vehículo,
+disponibilidad, comisión (o `null` si la app no publica un porcentaje verificable), nota de comisión,
+pagos, requisitos, observaciones, links oficiales y fecha de verificación.
+
+**Importante:** las comisiones de transporte de pasajeros no son cifras oficiales fijas: DiDi,
+Uber, Cabify y Yango no publican un porcentaje único por ciudad/servicio. Los valores iniciales de
+Ajustes son orientativos y el catálogo lo indica. Rappi es la excepción: sus términos definen la
+ganancia como domicilio + propina (propina 100 % del repartidor), por eso la sugerencia es 0 %.
+Cuando una app no publica datos para Colombia, la entrada figura como **disponibilidad a verificar**.
+
+Para actualizar el catálogo: editá el JSON, subí el cambio a `main` y tocá **Actualizar** en la app.
+No hace falta recompilar. Si agregás una app nueva con `sourceId` nuevo, sumalo también a
+`ALL_SOURCES` en `src/domain/settings.ts`, a `SOURCE_PATTERNS` en
+`src/ingest/notificationParser.ts` y a los valores por defecto, y recompilá.
 
 ## Pruebas
 
@@ -130,17 +163,18 @@ npx expo install --fix
 npm test
 ```
 
-Cubre el cálculo de métricas, la estrategia (ritmo, demanda, urgencia, supervivencia) y el parser de
-notificaciones en español.
+Cubre el cálculo de métricas, la estrategia (ritmo, demanda, urgencia, supervivencia), el parser de
+notificaciones en español y la validación del catálogo versionado.
 
 ## Estructura
 
 ```
 src/
-  domain/        lógica pura: tipos, métricas, estrategia, decisión, config
+  domain/        lógica pura: tipos, métricas, estrategia, decisión, config, catálogo
   ingest/        parseo de números y de texto de notificaciones
-  state/         estado del día + persistencia local (AsyncStorage)
-  ui/            pantallas Hoy / Oferta / Ajustes
+  state/         estado del día, catálogo remoto y persistencia local (AsyncStorage)
+  ui/            pantallas Hoy / Oferta / Apps / Ajustes
+catalog/         JSON versionado del catálogo de apps (fuente única + copia incluida)
 packages/
   rn-umbral-notifications/   módulo nativo Android (NotificationListenerService)
 src/__tests__/   pruebas de la lógica
@@ -150,7 +184,8 @@ src/__tests__/   pruebas de la lógica
 
 Agregá o ajustá las expresiones regulares en `src/ingest/notificationParser.ts` y un caso de prueba
 en `src/__tests__/parser.test.ts`. Los campos que no se puedan leer aparecen marcados en la pantalla
-**oferta** para que los completes a mano.
+**oferta** para que los completes a mano. Para datos de modalidad/requisitos/comisión, editá el JSON
+de `catalog/` (ver sección anterior).
 
 ## Estado
 

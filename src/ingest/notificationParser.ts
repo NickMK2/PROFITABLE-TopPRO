@@ -16,6 +16,9 @@ const SOURCE_PATTERNS: Array<[SourceId, RegExp]> = [
   ['cabify', /cabify/i],
   ['bolt', /bolt/i],
   ['yango', /yango/i],
+  ['rappi', /rappi|soy\s+rappi/i],
+  ['glovo', /glovo/i],
+  ['pedidosya', /pedidos\s*ya/i],
 ];
 
 export function detectSource(text: string, packageName?: string): SourceId {

@@ -32,6 +32,18 @@ describe('parseOfferText', () => {
     expect(parsed.source).toBe('uber');
   });
 
+  it('reconoce apps de entregas del catálogo', () => {
+    expect(parseOfferText('Soy Rappi · Pedido $9.800 · 2 km · 18 min', 1_000).source).toBe(
+      'rappi',
+    );
+    expect(parseOfferText('Glovo · Nuevo pedido $8.500 · 1,8 km · 15 min', 1_000).source).toBe(
+      'glovo',
+    );
+    expect(
+      parseOfferText('PedidosYa · Pedido $7.200 · 2,4 km · 16 min', 1_000).source,
+    ).toBe('pedidosya');
+  });
+
   it('marca campos faltantes', () => {
     const parsed = parseOfferText('DiDi · Tenés una nueva solicitud', 1_000);
     expect(parsed.offer).toBeNull();
