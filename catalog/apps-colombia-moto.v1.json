@@ -1,0 +1,189 @@
+{
+  "version": 1,
+  "country": "CO",
+  "focus": "moto",
+  "updatedAt": "2026-11-26",
+  "disclaimer": "Datos resumidos de fuentes oficiales, con fecha de verificación. Las comisiones, requisitos y ciudades cambian seguido: confirmá siempre el detalle dentro de la app antes de aceptar. TopPRO no afilia, no automatiza la aceptación y solo lee notificaciones.",
+  "apps": [
+    {
+      "id": "didi-moto",
+      "name": "DiDi Moto",
+      "sourceId": "didi",
+      "workType": "pasajeros",
+      "vehicle": "moto",
+      "availability": "confirmada",
+      "commissionRate": null,
+      "commissionVerified": false,
+      "commissionNote": "DiDi anuncia 'una de las tasas de servicio más bajas del mercado' pero no publica un porcentaje fijo. El 20 % que trae Ajustes es orientativo: revisá el desglose real de cada viaje en la app.",
+      "payoutNote": "Ganancias, promociones y referidos se consultan en la app DiDi Conductor; el destino del arrendamiento se conoce antes de comenzar.",
+      "requirements": [
+        "Licencia de conducción A1 o A2 vigente",
+        "Tarjeta de tránsito",
+        "SOAT vigente",
+        "Foto de perfil y documentos aprobados (la revisión puede tardar 24 a 48 h)"
+      ],
+      "notes": [
+        "Solo se puede registrar en un producto: DiDi Moto o DiDi Express.",
+        "El sitio oficial lista cobertura en Bogotá, Medellín, Cali, Barranquilla, Bucaramanga y otras ciudades."
+      ],
+      "termsUrl": "https://web.didiglobal.com/co/legal/",
+      "infoUrl": "https://web.didiglobal.com/co/conductor/",
+      "verifiedAt": "2026-11-26"
+    },
+    {
+      "id": "uber",
+      "name": "Uber (Trayecto / Uber Eats)",
+      "sourceId": "uber",
+      "workType": "ambos",
+      "vehicle": "ambos",
+      "availability": "confirmada",
+      "commissionRate": 0.25,
+      "commissionVerified": false,
+      "commissionNote": "Los términos generales de Uber para Colombia indican última modificación 12/8/2026. El service fee varía por ciudad y servicio; el 25 % de Ajustes es una referencia, no una cifra oficial fija.",
+      "payoutNote": "La app permite elegir cómo y cuándo recibir las ganancias y ofrece soporte 24/7.",
+      "requirements": [
+        "Mayor de 18 años y verificación de antecedentes",
+        "Licencia de conducción vigente",
+        "SOAT vigente y tarjeta de propiedad del vehículo",
+        "Para entregas en bicicleta: cédula y mayor de 18 años"
+      ],
+      "notes": [
+        "Los requisitos y beneficios varían según país, región y ciudad.",
+        "Uber Eats usa la misma fuente 'uber' del parser: si querés otra comisión, creá una entrada separada en el catálogo."
+      ],
+      "termsUrl": "https://www.uber.com/legal/es-co/terms/",
+      "infoUrl": "https://www.uber.com/co/es/drive/",
+      "verifiedAt": "2026-11-26"
+    },
+    {
+      "id": "rappi",
+      "name": "Rappi (Soy Rappi)",
+      "sourceId": "rappi",
+      "workType": "entregas",
+      "vehicle": "ambos",
+      "availability": "confirmada",
+      "commissionRate": 0,
+      "commissionVerified": true,
+      "commissionNote": "Los términos de 'Soy Rappi' (actualizados 30/09/2026) definen la Ganancia como domicilio + propina, y la propina es 100 % para el repartidor. Por eso TopPRO sugiere 0 % de comisión sobre el monto que muestra la app.",
+      "payoutNote": "Transferencia semanal a una cuenta bancaria a tu nombre. El efectivo recaudado genera deuda hasta que se deposita; Rappi puede retener ganancias ante indicios de fraude.",
+      "requirements": [
+        "Mayor de 18 años y cédula vigente",
+        "Licencia y SOAT vigentes si usás moto o carro",
+        "Cuenta bancaria a tu nombre",
+        "Afiliación vigente al sistema de seguridad social"
+      ],
+      "notes": [
+        "Trabajo independiente, sin exclusividad: podés conectarte a otras apps.",
+        "Los términos prohíben alterar la ubicación o usar aplicaciones que modifiquen el funcionamiento de la app. TopPRO solo lee el texto de las notificaciones y no toca controles.",
+        "Los incentivos se consultan en 'Mis Recompensas' dentro de la app."
+      ],
+      "termsUrl": "https://legal.rappi.com.co/colombia/terminos-y-condiciones-de-uso-de-plataforma-virtual-rappitendero/",
+      "infoUrl": "https://soyrappi.com.co/",
+      "verifiedAt": "2026-11-26"
+    },
+    {
+      "id": "didi-food",
+      "name": "DiDi Food / socio repartidor",
+      "sourceId": "didi",
+      "workType": "entregas",
+      "vehicle": "ambos",
+      "availability": "confirmada",
+      "commissionRate": null,
+      "commissionVerified": false,
+      "commissionNote": "DiDi no publica un porcentaje de tarifa de servicio para socios repartidores. Usá el desglose de la app y ajustá la comisión 'didi' en Ajustes si hace falta.",
+      "payoutNote": "Consultá ganancias y incentivos en la app DiDi Food / DiDi Conductor.",
+      "requirements": [
+        "Documento de identidad y licencia vigente según el país y la ciudad",
+        "SOAT vigente para vehículo propio",
+        "Registro como socio repartidor aprobado"
+      ],
+      "notes": [
+        "Comparte la fuente 'didi' con los viajes de pasajeros: el texto de la notificación define el origen.",
+        "Revisá las condiciones de 'Usuarios Repartidores' en la sección legal de DiDi Colombia."
+      ],
+      "termsUrl": "https://web.didiglobal.com/co/legal/",
+      "infoUrl": "https://web.didiglobal.com/co/conductor/",
+      "verifiedAt": "2026-11-26"
+    },
+    {
+      "id": "glovo",
+      "name": "Glovo (repartidor autónomo)",
+      "sourceId": "glovo",
+      "workType": "entregas",
+      "vehicle": "ambos",
+      "availability": "verificar",
+      "commissionRate": null,
+      "commissionVerified": false,
+      "commissionNote": "Los términos de repartidores de Glovo (última actualización 12/04/2024) hablan de un 'Plan' de servicios y tarifas que el repartidor abona, sin fijar un porcentaje público. Verificá tu plan en la app antes de cargar un valor en Ajustes.",
+      "payoutNote": "Glovo actúa como intermediario en cobros y pagos; el repartidor elige libremente los pedidos y responde por sus obligaciones fiscales y de seguridad social.",
+      "requirements": [
+        "Mayor de edad y alta como repartidor autónomo",
+        "Cuenta personal, única e intransferible",
+        "Seguro obligatorio del vehículo según normativa local"
+      ],
+      "notes": [
+        "El selector de país de la página oficial de términos no lista a Colombia al 26/11/2026: confirmá si opera en tu ciudad.",
+        "La página prohíbe ingeniería inversa y el uso de apps de terceros que modifiquen el funcionamiento; TopPRO solo lee notificaciones."
+      ],
+      "termsUrl": "https://glovoapp.com/docs/es/legal/terms-couriers/",
+      "infoUrl": "https://glovoapp.com/",
+      "verifiedAt": "2026-11-26"
+    },
+    {
+      "id": "cabify",
+      "name": "Cabify",
+      "sourceId": "cabify",
+      "workType": "pasajeros",
+      "vehicle": "carro",
+      "availability": "verificar",
+      "commissionRate": 0.2,
+      "commissionVerified": false,
+      "commissionNote": "No se encontró un porcentaje público y vigente para Colombia. El 20 % configurado es solo el valor inicial de Ajustes.",
+      "payoutNote": "Consultá condiciones y frecuencia de pago en la app de Cabify para tu ciudad.",
+      "requirements": [
+        "Licencia vigente y documentos del vehículo",
+        "Verificar en la app si acepta moto en tu ciudad"
+      ],
+      "notes": [
+        "Enfocado principalmente en automóviles; la modalidad moto no está confirmada en la fuente revisada."
+      ],
+      "termsUrl": "https://cabify.com/",
+      "infoUrl": "https://cabify.com/",
+      "verifiedAt": "2026-11-26"
+    },
+    {
+      "id": "yango",
+      "name": "Yango",
+      "sourceId": "yango",
+      "workType": "pasajeros",
+      "vehicle": "ambos",
+      "availability": "verificar",
+      "commissionRate": 0.15,
+      "commissionVerified": false,
+      "commissionNote": "Sin porcentaje público verificado para Colombia. El 15 % de Ajustes es orientativo.",
+      "payoutNote": "Consultá comisiones y pagos en la app de Yango para tu ciudad.",
+      "requirements": ["Licencia vigente y vehículo habilitado según la ciudad"],
+      "notes": ["Verificá disponibilidad real en Colombia antes de contar con esta fuente."],
+      "termsUrl": "https://yango.com/",
+      "infoUrl": "https://yango.com/",
+      "verifiedAt": "2026-11-26"
+    },
+    {
+      "id": "pedidosya",
+      "name": "PedidosYa",
+      "sourceId": "pedidosya",
+      "workType": "entregas",
+      "vehicle": "ambos",
+      "availability": "verificar",
+      "commissionRate": null,
+      "commissionVerified": false,
+      "commissionNote": "El sitio oficial no lista a Colombia entre sus países al 26/11/2026. Si la app no está disponible, no actives esta fuente.",
+      "payoutNote": "Si opera en tu ciudad, verificá comisión y pago en la app o en los términos locales.",
+      "requirements": ["Mayor de edad, documento y vehículo habilitado"],
+      "notes": ["Incluida para detectar la notificación si algún repartidor la usa; la disponibilidad está a verificar."],
+      "termsUrl": "https://www.pedidosya.com.co/",
+      "infoUrl": "https://www.pedidosya.com.co/",
+      "verifiedAt": "2026-11-26"
+    }
+  ]
+}
