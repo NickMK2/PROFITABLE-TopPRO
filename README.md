@@ -76,8 +76,8 @@ umbral = reserva × factor meta × factor urgencia × factor demanda
 ## En una PC Windows nueva (todo en un paso)
 
 ```powershell
-git clone https://github.com/NickMK2/PROFITABLE-TopPRO.git
-cd PROFITABLE-TopPRO
+git clone https://github.com/NickMK2/TopPRO.git
+cd TopPRO
 Set-ExecutionPolicy -Scope Process Bypass
 .\scripts\setup-windows.ps1
 ```
@@ -149,7 +149,7 @@ El archivo `catalog/apps-colombia-moto.v1.json` es la **única fuente de datos**
 incluye dentro del APK como copia inicial y además se publica en:
 
 ```
-https://raw.githubusercontent.com/NickMK2/PROFITABLE-TopPRO/main/catalog/apps-colombia-moto.v1.json
+https://raw.githubusercontent.com/NickMK2/TopPRO/main/catalog/apps-colombia-moto.v1.json
 ```
 
 Al abrir la pestaña **apps**, TopPRO descarga ese JSON desde GitHub, lo valida y lo guarda en
@@ -201,7 +201,7 @@ resume patrones **públicos y agregados** con fuente, fecha de verificación y n
 (`oficial`, `orientativo` o `verificar`). La app lo descarga desde:
 
 ```
-https://raw.githubusercontent.com/NickMK2/PROFITABLE-TopPRO/main/catalog/public-flows-colombia.v1.json
+https://raw.githubusercontent.com/NickMK2/TopPRO/main/catalog/public-flows-colombia.v1.json
 ```
 
 Igual que el catálogo de apps, guarda caché en `AsyncStorage` (`toppro.flows.v1`) y sirve la copia

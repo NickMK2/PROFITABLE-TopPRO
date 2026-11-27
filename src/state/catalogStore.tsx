@@ -4,7 +4,7 @@ import bundledJson from '../../catalog/apps-colombia-moto.v1.json';
 import { parseCatalog, type AppCatalog } from '../domain/catalog';
 
 const CATALOG_URL =
-  'https://raw.githubusercontent.com/NickMK2/PROFITABLE-TopPRO/main/catalog/apps-colombia-moto.v1.json';
+  'https://raw.githubusercontent.com/NickMK2/TopPRO/main/catalog/apps-colombia-moto.v1.json';
 const CACHE_KEY = 'toppro.catalog.v1';
 const TIMEOUT_MS = 12_000;
 

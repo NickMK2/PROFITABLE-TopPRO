@@ -4,7 +4,7 @@ import bundledJson from '../../catalog/public-flows-colombia.v1.json';
 import { parsePublicFlows, type PublicFlowCatalog } from '../domain/publicFlows';
 
 const FLOWS_URL =
-  'https://raw.githubusercontent.com/NickMK2/PROFITABLE-TopPRO/main/catalog/public-flows-colombia.v1.json';
+  'https://raw.githubusercontent.com/NickMK2/TopPRO/main/catalog/public-flows-colombia.v1.json';
 const CACHE_KEY = 'toppro.flows.v1';
 const TIMEOUT_MS = 12_000;
 
